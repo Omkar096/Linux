@@ -1,0 +1,3741 @@
+//First Application
+#include<stdio.h>
+
+int main(int argc, char *argv[])
+{
+    printf("Hello Omkar...\n");
+    return 0;
+}
+
+//-------------------------------------------------------------------
+// File System2.c
+#include<stdio.h>
+
+int main(int argc, char *argv[])
+{
+    if(argc == 1)
+    {
+      printf("Please enter your first name as command line argument");
+      return -1;
+    }
+    else
+    {
+        printf("welcome to MyCode : %s\n",argv[1]);
+        return 0;
+    }
+}    
+  
+//--------------------------------------------------------------------
+//filesystem4.c
+#include<stdio.h>
+
+int main(int argc, char *argv[])
+{
+    int iNo1=0,iNo2=0;
+    int iAns = 0;
+    
+    printf("Enter First Number : \n");
+    scanf("%d",&iNo1);
+    
+    printf("Enter Seconf Number : \n");
+    scanf("%d".&iNo2);
+    
+    iAns = iNo1 + iNo2;
+    
+    printf("Addition is : %d\n",iAns);
+    return 0;
+    
+} 
+
+//-------------------------------------------------------------------------
+//Filesystem5.c
+#include<stdio.h>
+
+int main(int argc, char *argv[])
+{
+    int iNo1=0,iNo2=0;
+    int iAns = 0;
+    
+    scanf("%d",&iNo1);
+    scanf("%d",&iNo2);
+    
+    iAns = iNo1 + iNo2;
+    
+    printf("Addition is : %d\n",iAns);
+    return 0;
+    
+} 
+//---------------------------------------------------------------------------
+//Filesystem6.c
+#include<stdio.h>
+#include<fcntl.h>
+
+int main(int argc, char *argv[])
+{
+    char Fname[20];
+    int fd = 0;
+    
+    printf("Enter the file name that you want to open : \n");
+    scanf("%s",Fname);
+    
+    fd = open(Fname, O_RDONLY);
+    
+    if(fd == -1)
+    {
+      printf("Unable to open the file \n");
+      return -1;
+     }
+     else
+     {
+      printf("File is succesfully opened with FD %d\n",fd);
+      }
+      
+      return 0;
+      
+}
+
+//------------------------------------------------------------------------------
+//Filesystem7.c
+#include<stdio.h>
+#include<fcntl.h>
+
+int main(int argc, char *argv[])
+{
+     int fd = 0;
+      if(argc != 2)
+      {
+        printf("Invalid number of arguments\n");
+        return -1;
+      }
+      
+      fd = open(argv[2],O_RDONLY);
+      if(fd == -1)
+      {
+        printf("Unable to Open file\n");
+        return -1;
+      }
+      else
+      {
+        printf("file is successfuli opned with fd: %dz\n",fd);
+      }
+      return 0;
+      
+  }
+
+//---------------------------------------------------------------------------
+//Filesystem8.c
+#include<stdio.h>
+#include<fcntl.h>
+#include<string.h>
+
+int main(int argc, char *argv[])
+{
+     int fd = 0;
+     int Mode = 0;
+     
+      if(argc != 3)
+      {
+        printf("Invalid number of arguments\n");
+        return -1;
+      }
+      
+      if(strcmp(argv[2],"read") == 0)
+      {
+        Mode = O_RDONLY;
+      }
+      else  if(strcmp(argv[2],"write") == 0)
+      {
+        Mode = O_WRONLY;
+      }
+      else
+      {
+        Mode = O_RDONLY;
+      }
+      
+      fd = open(argv[1],Mode);
+      if(fd == -1)
+      {
+        printf("Unable to Open file\n");
+        return -1;
+      }
+      else
+      {
+        printf("file is successfuli opned with fd: %d\n",fd);
+      }
+      return 0;
+      
+  }
+
+  
+//------------------------------------------------------------------------------
+//FileSystem9.c
+#include<stdio.h>
+#include<fcntl.h>
+#include<string.h>
+
+int main(int argc, char *argv[])
+{
+     int fd = 0;
+     int Mode = 0;
+     
+     printf("Usage: Name_Of_Executabel_File\n");
+      if(argc != 2)
+      {
+        printf("Invalid number of arguments\n");
+        return -1;
+      }
+      
+      fd = creat(argv[1],0777);
+      if(fd == -1)
+      {
+        printf("Unable to Open file\n");
+        return -1;
+      }
+      else
+      {
+        printf("file is successfuli opned with fd: %d\n",fd);
+      }
+      return 0;
+      
+  }
+
+//----------------------------------------------------------------------------------
+//Filesystem11.c
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+
+
+int main(int argc, char *argv[])
+{
+  int fd =0;
+  char Buffer[20]={'\0'};
+  int Ret =0;
+  
+  if(argc != 2)
+  {
+    printf("insufficent arguments\n");
+    return -1;
+  }
+  
+  fd = open(argv[1], O_RDONLY);
+  if(fd == -1)
+  {
+    printf("Unable to open file\n");
+    return -1;
+  }
+  
+  Ret = read(fd,Buffer,10);
+  
+  if(Ret == 0)
+  {
+  
+  
+    printf("Unable to read data from file \n");
+    return -1;
+  }
+  printf("data from file is : %s\n",Buffer);
+
+}
+
+//-----------------------------------------------------------------------
+//Filesystem12.c
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+int main(int argc, char *argv[])
+{
+  int fd =0;
+  //char Buffer[20]={'\0'};
+  int Ret =0;
+  char* Buffer =NULL;
+  int Size = 0;
+  
+  if(argc != 2)
+  {
+    printf("insufficent arguments\n");
+    return -1;
+  }
+  
+  fd = open(argv[1], O_RDONLY);
+  if(fd == -1)
+  {
+    printf("Unable to open file\n");
+    return -1;
+  }
+  
+  Size = atoi(argv[2]);
+  Buffer = (char*)malloc(Size);
+  
+  Ret = read(fd,Buffer,atoi(argv[2]));
+  
+  if(Ret == 0)
+  {
+  
+  
+    printf("Unable to read data from file \n");
+    return -1;
+  }
+  printf("data from file is : %s\n");
+  write(1,Buffer,Ret);
+
+}
+
+//-----------------------------------------------------------
+//Filesystem14.c
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<stdlib.h>
+
+#define BLOCKSIZE 1024
+int main(int argc, char *argv[])
+{
+  int fd =0;
+  //char Buffer[20]={'\0'};
+  int Ret =0;
+  char Buffer[BLOCKSIZE];
+
+  
+  if(argc != 2)
+  {
+    printf("insufficent arguments\n");
+    return -1;
+  }
+  
+  fd = open(argv[1], O_RDONLY);
+  if(fd == -1)
+  {
+    printf("Unable to open file\n");
+    return -1;
+  }
+  
+  while((Ret =read(fd,Buffer,sizeof(Buffer)))!=0)
+  {
+    write(1,Buffer,Ret);
+  }
+  close(fd);
+  return 0;
+}
+
+//------------------------------------------------------------------
+//FileSystem15.c
+#include<stdio.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+
+
+#define BLOCKSIZE 1024
+int main(int argc, char* argv[])
+{
+  int fdSource =0 ;
+  int fdDest=0;
+  int Ret = 0;
+  char Buffer[BLOCKSIZE] = {'\0'};
+  
+  if (argc !=3)
+  {
+    printf("Insufficent argumensts\n");
+    return -1;
+  }
+  fdSource = open(argv[1],O_RDONLY);
+  if(fdSource == -1)
+  {
+    printf("Unable to pen surve file\n");
+    return -1;
+  }
+  
+  fdDest =  creat(argv[2],0777);
+  
+  if(fdDest == -1)
+  {
+    printf("Unable to cretae destination file\n");
+    close(fdSource);
+    return -1;
+  }
+  
+  while(Ret == read(fdSource,Buffer,sizeof(Buffer))!= 0)
+  {
+    write(fdDest,Buffer,Ret);
+    memset(Buffer,0,sizeof(Buffer));
+  }
+  close(fdSource);
+  close(fdDest);
+  return 0;
+}
+
+//------------------------------------------------------------------
+//Filesystem16.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/stat.h>
+
+int main(int argc, char* argv[])
+{
+  struct stat sobj;
+  
+  if(argc !=2 )
+  {
+    printf("Insuffeiceint srguments\n");
+    return -1;
+  }
+  stat(argv[1],&sobj);
+  
+  printf("File name :%s\n",argv[1]);
+  printf("File size is: %d\n",sobj.st_size);
+  printf("Number of links : %d\n",sobj.st_nlink);
+  printf("INode number : %d\n",sobj.st_ino);
+  printf("File system number : %d\n",sobj.st_dev);
+  printf("Number of blocks :%d\n",sobj.st_blocks);
+  return 0;
+}
+
+//--------------------------------------------------------------------
+
+//Filesystem17.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/stat.h>
+
+int main(int argc, char* argv[])
+{
+  struct stat sobj;
+  int fd = 0 ;
+  
+  if(argc !=2 )
+  {
+    printf("Insuffeiceint srguments\n");
+    return -1;
+  }
+  fd = open(argv[1],O_RDONLY);
+  stat(fd,&sobj);
+  
+  printf("File name :%s\n",argv[1]);
+  printf("File size is: %d\n",sobj.st_size);
+  printf("Number of links : %d\n",sobj.st_nlink);
+  printf("INode number : %d\n",sobj.st_ino);
+  printf("File system number : %d\n",sobj.st_dev);
+  printf("Number of blocks :%d\n",sobj.st_blocks);
+  return 0;
+}
+
+//--------------------------------------------------------------------
+//Filesystem18.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/stat.h>
+
+int main(int argc, char* argv[])
+{
+  struct stat sobj;
+  
+  if(argc !=2 )
+  {
+    printf("Insuffeiceint srguments\n");
+    return -1;
+  }
+  stat(argv[1],&sobj);
+  
+
+ if(S_ISREG(sobj.st_mode))
+ {
+  print(
+ }
+  return 0;
+}
+
+//-----------------------------------------------------------------------
+
+//Filesystem19.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/stat.h>
+#include<dirent.h>
+
+
+int main(int argc, char* argv[])
+{
+  DIR *dp = NULL;
+  struct dirent *entry = NULL;
+  
+  if(argc !=2)
+  {
+    printf("Insuffucent arguments\n");
+    return -1;
+  }
+  
+  dp = opendir(argv[1]);
+  if(dp == NULL)
+  {
+    printf("Unable to opendirectory \n");
+    return -1;
+  }
+  
+  printf("Entries from the drectoru fule are :\n");
+  
+  while((entry = readdir(dp)) != NULL)
+  {
+    printf("%s : %d\n", entry->d_name, entry->d_ino);
+  }
+  
+  closedir(dp);
+  
+  return 0;
+}
+//--------------------------------------------------------------------
+//Filesystem20.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+#pragma pack(1)
+
+struct student
+{
+  int rollno;
+  char name[20];
+  float marks;
+  int Age;
+};
+
+int main(int argc, char* argv[])
+{
+  struct student sobj;
+  char Fname[20];
+  sobj.rollno =11;
+  sobj.marks =89.9;
+  
+  sobj.Age = 22;
+  
+  strcpy(sobj.name,"atul");
+  
+  printf("Enter the file name \n");
+  
+  scanf("%s",Fname);
+  
+  fd = creat(Fname,0777);
+  
+  write(fd,&sobj,sizeof(sobj));
+  return 0;
+}
+//----------------------------------------------------------------
+//Filesystem21.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<dirent.h>
+#include<sys/stat.h>
+
+#pragma pack(1)
+
+
+
+int main(int argc, char* argv[])
+{
+  char DirName[20];
+  DIR *dp=NULL;
+  struct direct *entry =NULL:
+  char name[20];
+  
+  
+  printf("Enter name of directory \n");
+  scanf("%s",DirName);
+  
+  dp =opendir(DirName);
+  if(dp == NULL)
+  {
+    printf("Unable to open the directoy\n");
+    return -1;
+  }
+  
+  while((entry = readdir(dp)) != NULL)
+  {
+    sprintf(name,"%s/%s",DirName,entry->d_name);
+    closedir(dp);
+    
+  }
+  return 0;
+}
+//--------------------------------------------------------------
+//Filesystem30.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+
+int main(int argc, char *argv[])
+{
+  int fd=0;
+  if(argc !=2)
+  {
+    printf("Invalid arguments\n");
+    return -1;
+  }
+  
+  fd = open(argv[1],O_RDWR|O_CREAT);
+  if(fd != 1)
+  {
+    printf("FIle is successfulyy opned wth gd %d \n",fd);
+  }
+  return 0;
+}
+
+//------------------------------------------------------------------
+//FIlesystem32.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+
+int main(int argc, char *argv[])
+{
+  int fd=0;
+  if(argc !=2)
+  {
+    printf("Invalid arguments\n");
+    return -1;
+  }
+  
+  fd = creat(argv[1],0777);
+  if(fd != -1)
+  {
+    printf("FIle is successfulyy opned wth gd %d \n",fd);
+  }
+  return 0;
+}
+
+//------------------------------------------------------------------------
+//Filesystem33.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+
+int main(int argc, char *argv[])
+{
+  int fd=0;
+  if(argc !=2)
+  {
+    printf("Invalid arguments\n");
+    return -1;
+  }
+  
+  fd = creat(argv[1],0777);
+  if(fd != -1)
+  {
+    printf("FIle is successfulyy opned wth gd %d \n",fd);
+  }
+  return 0;
+}
+
+//-------------------------------------------------------------------------
+
+//Filesystem35.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<dirent.h>
+
+
+int main(int argc, char *argv[])
+{
+  DIR *dp = NULL;
+  struct dirent *entry = NULL;
+  
+  dp = opendir(argv[1]);
+  
+  if(dp == NULL)
+  {
+    printf("Unable to opne the dirctorry\n");
+    return -1;
+  }
+  while((entry = readdir(dp))!= NULL)
+  {
+    if((strcmp(argv[2],entry->d_name))==0)
+    { 
+      printf("File is presnt int he directory \n");
+      break;
+    }
+  }
+  closedir(dp);
+  if(entry == NULL)
+  {
+    printf("there is no such file \n");
+  }
+  return 0;
+}
+
+//----------------------------------------------------------
+//Filesystem36.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<dirent.h>
+
+
+int main(int argc, char *argv[])
+{
+  DIR *dp = NULL;
+  struct dirent *entry = NULL;
+  
+  dp = opendir(argv[1]);
+  
+  if(dp == NULL)
+  {
+    printf("Unable to opne the dirctorry\n");
+    return -1;
+  }
+  while((entry = readdir(dp))!= NULL)
+  {
+    if((strcmp(argv[2],entry->d_name))==0)
+    { 
+      printf("File is presnt int he directory \n");
+      break;
+    }
+  }
+  closedir(dp);
+  if(entry == NULL)
+  {
+    printf("there is no such file \n");
+  }
+  return 0;
+}
+
+//-----------------------------------------------------------------
+//Filesystem39.c
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<dirent.h>
+#include<sys/stat.h>
+
+int main(int argc, char *argv[])
+{
+  int fd1=0,fd2=0;
+  struct stat obj1,obj2;
+  char Buffer1[1024];
+  char Buffer2[1024];
+  int ret;
+  
+  fd1 = open(argv[1],O_RDONLY);
+  fd2 = open(argv[2],O_RDONLY);
+  
+  if(fd1 == -1 || fd2 == -1)
+  {
+    printf("Unable to open the file \n");
+    return -1;
+  }
+  
+  fstat(fd1,&obj1);
+  fstat(fd2,&obj2);
+  
+  if(obj1.st_size != obj2.st_size)
+  {
+    printf("Files are different\n");
+    return -1;
+  }
+  
+  while((ret =read(fd1,Buffer1 ,sizeof(Buffer1))) != 0)
+  {
+    ret =read(fd1,Buffer2 ,sizeof(Buffer2));
+    if(memcmp(Buffer1,Buffer2,ret)!=0)
+    {
+      break;
+    }
+    
+  }
+  if(ret ==0 )
+  {
+    printf("both files are identical\n");
+  }
+  else
+  {
+    printf("Both files are different\n");
+  }
+  close(fd1);
+  close(fd2);
+  return 0;
+}
+//---------------------------------------------------------------------
+//Process Subsystem -1
+//First Application
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main()
+{
+  int PID=0;
+  PID = getpid();
+  
+    printf("PID of runnning process is : %d\n",PID);
+    return 0;
+}
+//---------------------------------------------------------------------------
+//ProcessSubsytem43.c
+//First Application
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main()
+{
+  int PID=0;
+  int PPID=0;
+  
+  
+  PID = getpid();
+  
+    printf("PID of runnning process is : %d\n",PID);
+    
+    PPID = getppid();
+    printf("PPID of runnning process is : %d\n",PPID);  
+    return 0;
+}
+//----------------------------------------------------------------------------
+//Processsubsytem44.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main()
+{
+  int Ret=0;
+  
+  Ret = fork();
+  
+  if(Ret == 0)
+  {
+    printf("Child process is running \n");
+    printf("child says : PID of parent process is : %d\n",getppid());
+    printf("child says : PID of child process is : %d\n",getpid());
+    
+    }
+    else
+    {
+      printf("Parent process is running\n");
+      printf("Parent says : PID of child process is : %d\n",Ret);
+      printf("Parent says : PID of parent process is : %d\n",getpid());
+      printf("Parent says : PID of parent process that is terminal is : %d\n",getppid());
+    }
+  return 0;
+  
+  }
+  
+ //-----------------------------------------------------------------------------------------
+ 
+//Processsubsytem45.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main()
+{
+  fork();
+  
+  printf("Hello world\n");
+    return 0;
+}
+
+//------------------------------------------------------------------------------------------
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+int main()
+{
+
+    printf("Jay Ganesh,,,\n");
+    printf("PID is : %d \n",getpid());
+    return 0;
+}
+//------------------------------------------------------------------------------------------
+
+//Processsubsytem52.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+
+int main()
+{
+  int Ret = 0;
+  
+  Ret =fork();
+  
+  if(Ret == 0)
+  {
+    execl("./ChildProcess",NULL,NULL);
+  }
+  else
+  {
+    printf("Parent is running with PID: %d\n",getpid());
+  }
+  return 0;
+}
+//----------------------------------------------------------------------------------------
+//Processusbsytem55.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+
+int main()
+{
+  int Ret = 0;
+  
+  Ret =fork();
+  
+  if(Ret == 0)
+  {
+    execl("./ChildProcess","NULL",NULL);
+  }
+  else
+  {
+    printf("Parent is running with PID: %d\n",getpid());
+    sleep(1000);
+  }
+  return 0;
+}
+
+//------------------------------------------------------------------------------------------
+//Processusbsytem56.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+
+int main()
+{
+  printf("Inside child process - PID of parent process is %d\n",getppid());
+  return 0;
+}
+
+//---------------------------------------------------------------------------------------
+//Processsusytem61.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/resource.h>
+
+
+int main()
+{
+  int ret =0;
+  
+  ret = nice(0);
+  
+  printf("current priority of process is %d\n",ret);
+  
+  ret = nice(10);
+  
+  printf("current priority of process is %d\n",ret);
+  
+    ret = nice(-20);
+  
+  printf("current priority of process is %d\n",ret);
+  return 0;
+}
+
+//------------------------------------------------------------------------------------
+//Processsubsytem63.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/resource.h>
+
+extern char **environ;
+int main()
+{
+  char **env = environ;
+  printf("Enviroment of running process is :\n");
+  
+  for(;*env !=NULL;env++)
+  {
+    printf("%s : \n",*env);
+  }
+  return 0;
+}
+
+//---------------------------------------------------------------------------------------
+//Processsusytem64.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main()
+{
+  int fd =0;
+  char Buffer[512];
+  int iCnt=0;
+  int iRet=0;
+  int i=0;
+  
+  fd = open("Demo1.txt",O_RDONLY);
+  while((iRet = read(fd,Buffer,sizeof(Buffer)))!=0)
+  {
+    for(i=0;i<iRet;i++)
+    {
+      if((Buffer[i]>= 'a')&&(Buffer[i]>= 'z'))
+      {
+        iCnt++;
+      }
+    }
+  }
+  printf("Number of small characters are : %d\n",iCnt);
+  close(fd);
+  return 0;
+}
+//-----------------------------------------------------------------------------------
+//Processsusytem65.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main()
+{
+  int fd =0;
+  char Buffer[512];
+  int iCnt=0;
+  int iRet=0;
+  int i=0;
+  
+  fd = open("Demo1.txt",O_RDONLY);
+  while((iRet = read(fd,Buffer,sizeof(Buffer)))!=0)
+  {
+    for(i=0;i<iRet;i++)
+    {
+      if((Buffer[i]>= 'A')&&(Buffer[i]>= 'Z'))
+      {
+        iCnt++;
+      }
+    }
+  }
+  printf("Number of capital characters are : %d\n",iCnt);
+  close(fd);
+  return 0;
+}
+//------------------------------------------------------------------------------------
+//Processsubsytem66.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main()
+{
+  int ret1=0;
+  int ret2=0;
+  
+  ret1 = fork();
+  if(ret1==0)
+  { 
+    execl("Process1","NULL",NULL);
+  }
+  
+  ret2 = fork();
+  if(ret2==0)
+  { 
+    execl("Process2","NULL",NULL);
+  }
+  return 0;
+}
+//-----------------------------------------------------------------------------------
+//processsusystem67.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+
+int main()
+{
+  int ret1=0;
+  int ret2=0;
+  int pid1,pid2;
+  int status1,status2;
+  
+  ret1 = fork();
+  if(ret1==0)
+  { 
+    execl("Process1","NULL",NULL);
+  }
+  wait(&status1);
+  
+  ret2 = fork();
+  if(ret2==0)
+  { 
+    execl("Process2","NULL",NULL);
+  }
+    wait(&status2);
+  return 0;
+}
+
+//----------------------------------------------------------------------------------------
+//Processusystem68.c
+//Demonstrationof multiprocessing
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<pthread.h>
+
+// void *____(void *_______)
+void *ThreadProc(void *ptr)
+{
+  printf("Inside Thread\n");
+}
+
+
+int main()
+{
+  pthread_t TID;
+  int ret = 0;
+  
+  ret = pthread_create(&TID,// Address of pthread_aatr_t structuore object
+                      NULL,// Thread  attributres
+                      ThreadProc,// Address of callback function
+                      NULL);// Paramters to callback function
+                      
+  if(ret !=0)
+  {
+    printf("Unable to create thread \n");
+    return -1;
+  }
+  
+  printf("Thread is created with ID : %u\n",TID);
+  
+  return 0;
+}
+//--------------------------------------------------------------------------------------
+//Processussytem69.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<pthread.h>
+
+
+int Counter =0;
+pthread_mutex_t lock;
+
+// void *____(void *_______)
+void *ThreadProc(void *ptr)
+{
+  pthread_mutex_lock(&lock);
+  int i =0;
+  Counter++;
+  printf("Thread executed with counter : %d\n",Counter);
+  
+  for(i=0;i<0xFFFFFFF;i++);
+  printf("Thread completed with counter : %d\n",Counter);
+  pthread_mutex_unlock(&lock);
+  pthread_exit(NULL);
+}
+
+
+
+int main()
+{
+  pthread_t TID1,TID2;
+  int ret1 = 0,ret2=0;
+
+  pthread_mutex_init(&lock,NULL);
+  
+  ret1 = pthread_create(&TID1,// Address of pthread_aatr_t structuore object
+                      NULL,// Thread  attributres
+                      ThreadProc,// Address of callback function
+                      NULL);// Paramters to callback function
+   
+   
+   
+  if(ret1 !=0)
+  {
+    printf("Unable to create thread \n");
+    return -1;
+  }
+ 
+   
+  ret1 = pthread_create(&TID2,// Address of pthread_aatr_t structuore object
+                      NULL,// Thread  attributres
+                      ThreadProc,// Address of callback function
+                      NULL);// Paramters to callback function
+                      
+   
+     if(ret1 !=0)
+  {
+    printf("Unable to create thread \n");
+    return -1;
+  }
+  
+  
+
+  
+  pthread_join(TID1,NULL);
+  pthread_join(TID2,NULL);
+  
+  pthread_mutex_destroy(&lock);
+  printf("End of main thread\n");
+  
+  pthread_exit(NULL);
+  return 0;
+}
+
+//------------------------------------------------------------------------------------
+//Processsubsystem70.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+
+
+
+int main()
+{
+  int FD[2];
+  int iRet = 0;
+  char Arr[] = "Marvellous Infosystem";
+  
+  char Buffer[512];
+  
+  pipe(FD);
+  iRet = fork();
+  
+  if(iRet == 0)
+  {
+    close(FD[0]);
+    write(FD[1],Arr,strlen(Arr));
+    exit(0);
+  }
+  else
+  {
+    printf("parent process schedules for reading from pipe \n");
+    close(FD[1]);
+    read(FD[0],Buffer,sizeof(Buffer));
+    printf(" Data from PIPE is ; %s\n",Buffer);
+  }
+  return 0;
+}
+
+//-------------------------------------------------------------------------------------
+
+//Processsubsystem79.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/stat.h>
+
+
+int main()
+{
+  int fd =0;
+  
+  char *path = "/tmp/mypipe";
+  fd = mkfifo(path,0666);
+  
+  if(fd == -1)
+  {
+    printf("Unable to create the names pipe \n");
+  }
+  
+  printf("Server us running nd writing the data into names pipe\n");
+  fd = open(path, O_WRONLY);
+  write (fd,"Marvellous",10);
+  close(fd);
+  unlink(path);
+  printf("data succesfully written in the pipe\n");
+  return 0;
+}
+
+//----------------------------------------------------------------------------------------
+
+//Processsusbsytem80.c
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/stat.h>
+
+
+int main()
+{
+  int fd =0;
+  char Buffer[20];
+  char *path = "/tmp/mypipe";
+  fd = mkfifo(path,0666);
+  
+
+  fd = open(path, O_WRONLY);
+  read (fd,Buffer,10);
+  close(fd);
+  printf("data : %s",Buffer);
+  return 0;
+}
+
+//----------------------------------------------------------------------------------------
+
+//Processsubsytem82.c
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/stat.h>
+#include<sys/shm.h>
+
+int main()
+{
+  int shmid = 0;
+  int shmsize = 100;
+  int key = 1234;
+  char* ptr = NULL;
+  printf("Server application running...\n");
+  
+  shmid = shmget(key,shmsize,IPC_CREAT | 0666);
+  
+  printf("Shared memory allocated successfully\n");
+  
+  ptr  = shmat(shmid , NULL,0);
+  
+  if(ptr  != NULL)
+  {
+    printf("Shared memory attach successfully\n");
+  }
+  
+  *ptr  ='H';
+  ptr++;
+    *ptr  ='e';
+  ptr++;
+    *ptr  ='l';
+  ptr++;
+    *ptr  ='l';
+  ptr++;
+    *ptr  ='o';
+  ptr++;
+    *ptr  ='\0';
+  ptr++;
+  
+  printf("data written in shred memory seccussfully...\n");
+  return 0;
+}
+
+//---------------------------------------------------------------------------------
+
+//Processsusytem84.c
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/stat.h>
+#include<sys/shm.h>
+
+int main()
+{
+  int shmid = 0;
+  int shmsize = 100;
+  int key = 1234;
+  char* ptr = NULL;
+  printf("client application running...\n");
+  
+  shmid = shmget(key,shmsize, 0666);
+  
+  printf("Shared memory allocated successfully\n");
+  
+  ptr  = shmat(shmid , NULL,0);
+  
+  if(ptr  != NULL)
+  {
+    printf("Shared memory attach successfully\n");
+  }
+  
+  printf("Data from shared memory is :\n");
+  
+  return 0;
+}
+
+//---------------------------------------------------------------------------------
+#include<stdio.h>
+#include<unistd.h>
+#include<signal.h>
+
+void handler(int);
+
+int main()
+{
+	// Register handler function for user defined signal
+
+	signal(SIGUSR1,handler);
+	signal(SIGUSR2,handler);
+
+	for(; ;)
+		pause();	// This function wait till arrival of signal
+
+	return 0;
+}
+
+void handler(int no)
+{
+	if(no == SIGUSR1)
+	{
+		printf("First user defined signal is arrived\n");
+	}
+	if(no == SIGUSR2)
+	{
+		printf("Second user defined signal is arrived\n");
+	}
+}
+
+//--------------------------------------------------------------------------------
+
+//Program to find the file type
+
+#include<string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include<unistd.h>
+
+int main( )
+{
+	struct stat buf;
+	char name[255];
+
+	printf("\nEnter file name to check its type\n");
+	scanf("%s",name);
+
+	if (stat(name, &buf) < 0)
+	{
+		printf("Error while retriving statistics of file\n");
+		return -1;
+	}
+	// There are macros defined which checks file type
+	// If file type match then it returns true
+
+	if (S_ISREG(buf.st_mode))
+	{
+		printf("Regular file");
+	}
+	else if (S_ISDIR(buf.st_mode))
+	{
+		printf("Directory");
+	}
+	else if (S_ISCHR(buf.st_mode))
+	{
+		printf("Character special fiel");
+	}
+	else if (S_ISBLK(buf.st_mode))
+	{
+		printf("Block special file");
+	}
+	else if (S_ISFIFO(buf.st_mode))
+	{
+		printf("FIFO");
+	}
+	else if (S_ISLNK(buf.st_mode))
+	{
+		printf("Symbolic link");
+	}
+	else if (S_ISSOCK(buf.st_mode))
+	{
+		printf("Socket");
+	}
+	else
+	{
+		printf("File type is unknown");
+	}
+
+printf("\n");
+return 0;
+}
+
+//------------------------------------------------------------------------------------
+
+// This program demonstate use of stat function which gives information about the file.
+// This program demonstate use of fstat function which gives information about the file.
+
+#include<string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+
+int main()
+{
+	int ret;
+	int fd;
+	struct stat fileStat;
+
+	// stat function accept file name as a parameter
+	ret = stat("file.txt",&fileStat);
+	if(ret == -1)
+	{
+		printf("stat function fail\n");
+		return -1;
+	}
+
+	printf("Calling function stat\n\n");
+	printf("File Size : \t\t%d bytes\n",(int)fileStat.st_size);
+	printf("Number of Links : \t%d\n",(int)fileStat.st_nlink);
+	printf("File inode : \t\t%d\n",(int)fileStat.st_ino);
+	printf("File system number: \t\t%d\n",(int)fileStat.st_dev);
+	printf("Number of blocks allocated fior file\t\t%d\n",(int)fileStat.st_blocks);
+	printf("File Permissions: \t");
+
+	printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+	printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
+	printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
+	printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
+	printf("\n\n");
+ 
+	if(S_ISLNK(fileStat.st_mode))
+	{
+		printf("It is symbolic link\n");
+	}
+	else
+	{
+		printf("It is not symbolic link\n");
+	}
+
+// If the file is already opened then we can call fstat function
+	fd = open("file.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+
+	// fstat function accept file desx
+
+	printf("Calling function fstat\n\n");
+	memset(&fileStat,0,sizeof(fileStat));
+	ret = fstat(fd, &fileStat);
+	if(ret == -1)
+	{
+		printf("Error in fstat");
+	}
+
+	printf("File Size : \t\t%d bytes\n",(int)fileStat.st_size);
+	printf("Number of Links : \t%d\n",(int)fileStat.st_nlink);
+	printf("File inode : \t\t%d\n",(int)fileStat.st_ino);
+
+	return 0;
+}
+
+
+//---------------------------------------------------------------------------------
+
+/*
+	Write a program which create hole of size 1kb at the end of file.
+*/
+
+#include <fcntl.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(int argc, char *argv[])
+{
+	int fd;
+	int ret;
+	char buff[50] = {' '};
+	
+	if(argc != 2)
+	{
+		printf("Error: Not sufficient arguments\n");
+		return -1;
+	}
+
+	// If file is opened in read mode we can read the contents from 0 byte 		offset
+	fd = open(argv[1],O_WRONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file \n");
+		return -1;
+	}
+
+	// As we want to create hole at the end of file we have to perform 	appropriate lssek operation as
+	lseek(fd,1024,SEEK_END);
+	
+	// write 1 byte at the end of file to apply the effect of lseek.
+	write(fd,buff,1);
+	
+	close(fd);
+	return 0;
+}
+
+
+//-------------------------------------------------------------------------------------------
+#include <stdio.h>
+#include <unistd.h>
+
+int main()
+{
+    long int page_size = sysconf(_SC_PAGESIZE);
+    printf("My page size: %ld\n", page_size);
+
+    void* c1 = sbrk(0);
+    printf("program break address: %p\n", c1);
+    printf("sizeof char: %lu\n", sizeof(char));
+
+    c1 = (void*) ((char*) c1 + 1);
+    printf("c1: %p\n", c1);
+
+    brk(c1);
+    void* c2 = sbrk(0);
+
+    printf("program break address: %p\n", c2); 
+    return 0;
+}
+
+//----------------------------------------------------------------------------------------\
+
+ #include<stdio.h>
+#include<signal.h>
+#include<unistd.h>
+
+void sig_handler(int signo)
+{
+  if (signo == SIGINT)
+    printf("received SIGINT\n");
+
+  printf("Received signal is %d\n",signo);
+}
+
+int main()
+{
+	printf("Able to receive the signal\n");
+  signal(SIGINT, sig_handler);
+
+  while(1) 
+	    sleep(1);
+    
+  return 0;
+}
+
+//-----------------------------------------------------------------------------------------
+#include<stdio.h>
+#include<unistd.h>
+#include<signal.h>
+
+void handler(int);
+
+int main()
+{
+	// Register handler function for user defined signal
+
+	signal(SIGUSR1,handler);
+	signal(SIGUSR2,handler);
+
+	for(; ;)
+		pause();	// This function wait till arrival of signal
+
+	return 0;
+}
+
+void handler(int no)
+{
+	if(no == SIGUSR1)
+	{
+		printf("First user defined signal is arrived\n");
+	}
+	if(no == SIGUSR2)
+	{
+		printf("Second user defined signal is arrived\n");
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+// This program demonstates accessibility of the files
+
+#include<string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include<unistd.h>
+
+int main(int argc,char *argv[])
+{
+	char name[255];
+
+// access() checks whether the calling process can access the file pathname.  If pathname is a symbolic link, it is dereferenced.
+//On  success  (all requested permissions granted), zero is returned.  
+// On error (at least one bit in mode asked for a permission that is denied, or some other error occurred), -1 is returned,
+
+	if (access(argv[1],R_OK) < 0)
+	{
+		printf("Our process can not access this file for reading purpose\n");
+	}
+	else
+	{
+		printf("Our process has read access\n");
+	}
+
+	if (access(argv[1], W_OK) < 0)
+	{
+		printf("Our process can not access this file for writing purpose\n");
+	}
+	else
+	{
+		printf("Our process has write access\n");
+	}
+// also check for an execute permission...
+	if (access(argv[1], X_OK) < 0)
+	{
+		printf("Our process can not access this file for executing purpose\n");
+	}
+	else
+	{
+		printf("Our process has executing access\n");
+	}
+
+	return 0;
+}
+
+//-----------------------------------------------------------------------------------------
+
+// Program which demonstate use of and change of current working directory.
+// Every process has a current working directory. This directory is where the search 
+// for all relative pathnames starts (Relative path names).
+
+#include<fcntl.h>
+#include<stdio.h>
+#include<unistd.h>
+
+int main()
+{
+	int return_value;
+	int fd;
+	char name[100] = {'\0'};
+
+
+	// We can change the current working directory of the calling process by 
+	// calling the chdir or fchdir functions.
+
+	return_value = getcwd(name,sizeof(name));
+	printf("\nCurrent working directory before change is : %s\n\n",name);
+
+	return_value = chdir("NewDirectory");
+	if(return_value == -1)
+	{
+		printf("Unable to change current working directory\n");
+		return -1;
+	}
+	printf("Current working directory is succefully changed...\n");
+
+	// In this case file is searched from NewDirectory
+	fd = open("file.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file");
+		return -1;
+	}
+	printf("File gets successfully opened after changing current working directory..\n");
+
+	// We can check our current working directory by calling getcwd()
+	// The getcwd() function copies an absolute pathname of the current working directory to the array pointed 		//to by buf, which is of length size.
+
+	return_value = getcwd(name,sizeof(name));
+
+	if(return_value == -1)
+	{
+		printf("Unable to get current working directory\n");
+		return -1;
+	}
+
+	printf("\nCurrent working directory is : %s\n\n",name);
+	return 0;
+}
+
+//--------------------------------------------------------------------------------------------
+// Program which demonstate use of and change of current working directory.
+// Every process has a current working directory. This directory is where the search 
+// for all relative pathnames starts (Relative path names).
+
+#include<fcntl.h>
+#include<stdio.h>
+#include<unistd.h>
+
+int main()
+{
+	int return_value;
+	int fd;
+	char name[25];
+
+	// We can change the current working directory of the calling process by 
+	// calling the chdir or fchdir functions.
+
+	return_value = chdir("NewDirectory");
+	if(return_value == -1)
+	{
+		printf("Unable to change current working directory\n");
+		return -1;
+	}
+
+	// In this case file is searched from NewDirectory
+	fd = open("file.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file");
+		return -1;
+	}
+
+	// We can check our current working directory by calling getcwd()
+	// The getcwd() function copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size.
+
+	return_value = getcwd(name,sizeof(name));
+
+	if(return_value == -1)
+	{
+		printf("Unable to get current working directory\n");
+		return -1;
+	}
+
+	printf("Current working directory is %s\n",name);
+	return 0;
+}
+
+//---------------------------------------------------------------------------------------------
+
+// This program demonstates changing the file permisssions by using chmod 
+// and fchmod
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include<unistd.h>
+
+int main( )
+{
+	int ret;
+	int fd;
+
+	// This function accept file name as first parameter and permissions 
+	// to be set as second parameter.
+	// For second parameter there are predefined macros available
+	// In this example we are changing permissions of file first.txt 
+	// as read,write,execute for the user.
+
+	ret = chmod("file.txt",S_IRWXU);
+
+	if(ret == -1)
+	{
+		printf("Unable to change the permission\n");
+	}
+
+	// There are some other permissions flags available as
+	/*
+	S_ISUID set-user-ID on execution
+	S_ISGID set-group-ID on execution
+	S_ISVTX saved-text (sticky bit)
+	S_IRWXU read, write, and execute by user (owner)
+	S_IRUSR read by user (owner)
+	S_IWUSR write by user (owner)
+	S_IXUSR execute by user (owner)
+	S_IRWXG read, write, and execute by group
+	S_IRGRP read by group
+	S_IWGRP write by group
+	S_IXGRP execute by group
+	S_IRWXO read, write, and execute by other (world)
+	S_IROTH read by other (world)
+	S_IWOTH write by other (world)
+	S_IXOTH execute by other (world)
+	*/
+
+	// IF file is already opened then we can use the function fchmod as it does same activity.
+	// This function accept first parameter as a file descriptor and second parameter as a 		permissions to be set.
+
+	fd = open("file.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// In this case we are setting write permission for the user
+	ret = fchmod(fd,S_IWUSR);
+	if(ret == -1)
+	{
+		printf("Unable to change the permission\n");
+	}
+	printf("\nPermissions changed\n");
+	return 0;
+}
+
+//---------------------------------------------------------------------------------------------
+//Entry Point
+
+#include<stdio.h>
+#include<stdlib.h>
+#pragma startup(New_Main)
+
+int New_Main()
+{
+	printf("Inside New entry point function\n");
+	exit(0);
+}
+int main()
+{
+	printf("Inside main\n");
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+/* 
+
+This program demonstates enviornment list of our program.
+
+The environment list is an array of character pointers, with each pointer 
+containing the address of a null-terminated C string.
+The address of the array of pointers is contained in the global variable environ.
+We can access that global variable from our program.
+
+Envoirnment list contains following things :
+
+USER
+	The name of the logged-in user.
+LOGNAME
+	The name of the logged-in user.
+HOME
+	A user's login directory, set by login from the password file passwd.
+PATH
+	The sequence of directory prefixes that sh and many other programs apply 
+	in searching for a file known by an incomplete path name.
+PWD
+	The current working directory. Set by some shells.
+SHELL
+	The file name of the user's login shell.
+*/
+
+#include <stdio.h>
+
+int main(int argc, char *argv[], char *envp[])
+{
+	int index = 0;
+	
+	while (envp[index])
+	{
+		printf("%s\n", envp[index++]);
+	}
+}
+
+
+//----------------------------------------------------------------------------------------
+
+// Program to demonstrate fcntl()
+
+#include <stdio.h>
+#include <fcntl.h>
+ 
+int main()
+{
+	int val;
+	int fd;
+	int newfd;
+
+	fd = open("file.txt",O_RDWR);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+
+	if ((val = fcntl(fd, F_GETFL, 0)) < 0)
+	{
+		printf("Error in fcntl\n");
+	}
+
+	// Switch case use to check the access mode of file
+	// O_ACCMODE is a macro stands for a mask that can be bitwise-ANDed 
+	// with the file status flag value to produce a value representing 
+	// the file access mode.
+	switch (val & O_ACCMODE) 
+	{
+		case O_RDONLY:
+				printf("read only mode\n");
+			break;
+
+		case O_WRONLY:
+				printf("write only mode\n");
+			break;
+
+
+		case O_RDWR:
+				printf("read write mode\n");
+			break;
+
+		default:
+				printf("unknown access mode\n");
+	}
+
+	if (val & O_APPEND)
+	{
+		printf(", append");
+	}
+
+	if (val & O_NONBLOCK)
+	{
+		printf(", nonblocking");
+	}
+
+	// The another use of fcntl system call is to duplicate the file descriptor
+	// Means by using fcntl we can get same efect as dup or dup2
+
+	newfd = fcntl(fd, F_DUPFD, 0);
+
+	// it is equivalent to : 
+	// newfd = dup(fd);
+
+	printf("Old file descriptor is %d and new is %d\n",fd,newfd);
+
+	// Similarly, we can get same effect as dup2
+
+	close(8);
+	newfd = fcntl(fd, F_DUPFD, 8);
+	// it is equivalent to dup2(filedes, filedes2);
+
+	printf("Old file descriptor is %d and new is %d\n",fd,newfd);
+	return 0;
+}
+//----------------------------------------------------------------------------------------
+//Program to find the file type
+
+#include<string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include<unistd.h>
+
+int main( )
+{
+	struct stat buf;
+	char name[255];
+
+	printf("\nEnter file name to check its type\n");
+	scanf("%s",name);
+
+	if (stat(name, &buf) < 0)
+	{
+		printf("Error while retriving statistics of file\n");
+		return -1;
+	}
+	// There are macros defined which checks file type
+	// If file type match then it returns true
+
+	if (S_ISREG(buf.st_mode))
+	{
+		printf("Regular file");
+	}
+	else if (S_ISDIR(buf.st_mode))
+	{
+		printf("Directory");
+	}
+	else if (S_ISCHR(buf.st_mode))
+	{
+		printf("Character special fiel");
+	}
+	else if (S_ISBLK(buf.st_mode))
+	{
+		printf("Block special file");
+	}
+	else if (S_ISFIFO(buf.st_mode))
+	{
+		printf("FIFO");
+	}
+	else if (S_ISLNK(buf.st_mode))
+	{
+		printf("Symbolic link");
+	}
+	else if (S_ISSOCK(buf.st_mode))
+	{
+		printf("Socket");
+	}
+	else
+	{
+		printf("File type is unknown");
+	}
+
+printf("\n");
+return 0;
+}
+
+//-------------------------------------------------------------------------------------
+/* 
+
+This program demonstates use of getenv().
+
+This function is used to retrive the value of perticular enviornment variable.
+For that we have to pass name of that enviornment variable and it returns value of that variable.
+
+Syntax :
+char *getenv(const char *name);
+
+We can use setenv() function to set the specific value.
+
+*/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+	char *p;
+
+	p = getenv("PWD");
+	if(p == NULL)
+	{
+		printf("Unable to get value\n");
+	}
+	
+	printf("Present Working Directory is : %s\n",p);
+
+	p = NULL;
+
+	p = getenv("SHELL");
+	if(p == NULL)
+	{
+		printf("Unable to get value\n");
+	}
+	
+	printf("Shell of our process is : %s\n",p);
+
+	p = NULL;
+	
+	p = getenv("HOME");
+	if(p == NULL)
+	{
+		printf("Unable to get value\n");
+	}
+	
+	printf("Home directory is : %s\n",p);
+
+	return 0;
+}
+//-------------------------------------------------------------------------------------
+
+// This program demonstates how to create new directory and 
+//  how to delete the directory.
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include<stdio.h>
+#include<unistd.h>
+
+int main()
+{
+	int ret;
+
+	//In this case directory named as NewDirectory is created, 
+	// with read/write/search permissions for owner and group, and 
+	// with read/search permissions for others.
+
+	// mkdir() system call accept two parameters first as name of the directory
+	// and second is permissions for that new directory
+
+	ret = mkdir("NewDirectory5", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	
+	if(ret == -1)
+	{
+		printf("Unable to create directory\n");
+		return -1;
+	}
+	printf("Directory succesfully created...\n\n");
+
+	// After creating this directory there is only two entries as . and ..
+	// that represents its current directory and parent directory
+
+	// We can delete directory by using rmdir()
+	// rmdir() system call accept name of the directory to be remove
+
+	ret = rmdir("NewDirectory1");
+
+	if(ret == -1)
+	{
+		printf("Unable to remove directory\n");
+		return -1;
+	}
+	printf("Directory removed successfully...\n\n");	
+
+	// If the directory contains files or other containts then we can not delete
+	// that directory by rmdir()
+
+	return 0;
+}
+//---------------------------------------------------------------------------------------
+// This program demonstates directory file handling
+
+#include <sys/types.h>
+#include <dirent.h>
+#include <stdio.h>
+#include<unistd.h>
+
+int main() 
+{
+	DIR *dir;
+	struct dirent *entry;
+	
+	// opendir() system call opens directory and returns pointer to DIR structure
+	// opendir() accept only one parameter that is name of the directory to be open
+
+	if ((dir = opendir("NewDirectory")) == NULL)
+	{
+		printf("Unable to open specified directory\n");
+		return -1;
+	}
+
+	printf("Contents of directory as \n");
+
+	// After opening a directory we can read the directory contents means directory entries
+	// Each directory entry contains two things as name of the file and its inode number
+	// This contents are stored in dirent structure which is as follows
+	/*	
+		struct dirent 
+		{
+			ino_t d_ino; // i-node number
+			char d_name[NAME_MAX + 1]; // filename 
+		}
+	*/
+	 
+	while ((entry = readdir(dir)) != NULL)
+	{
+	      printf("Name: %s\t Inode: %d\n", entry->d_name,entry->d_ino);
+	}
+	
+	// readdir() system call returns NULL when it reach end of the directory.
+
+	// closedir() close the directory which is opened by opendir()
+	closedir(dir);
+return 0;
+}
+//-------------------------------------------------------------------------------------------
+
+//Program to demostrate pread().
+#include <fcntl.h>
+#include<stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+int fd;
+int ret;
+int offset;
+
+char buff[5];
+
+// If file is opened in read mode
+fd = open("file.txt",O_RDONLY);
+if(fd == -1)
+{
+	printf("Unable to open file \n");
+	return -1;
+}
+
+// When we use read and lseek system call it not provides atomic behaviour.
+// When multiple processess can access the same file then there can be a problem.
+// which can be avoided using pread system call which gives effect of lseek and read atomically.
+
+// Parameters of pread system call is same but only diffrence is in last parameter
+// Last parameter is offset from which we have to read
+//close(fd);
+ret = pread(fd,buff,sizeof(buff),10);
+
+// pread system call returns no of bytes successfully read.
+
+if(ret != sizeof(buff))
+{
+	printf("Unable to write contents\n");
+}
+
+printf("\nRead contents are \n %s \n\n",buff);
+
+close(ret);
+return 0;
+
+}
+
+//----------------------------------------------------------------------------------------
+//Program to demostrate pwrite().
+#include <fcntl.h>
+#include<stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+int fd;
+int ret;
+int offset;
+
+char buff[25] = "Hello World";
+
+// If file is opened in read mode
+fd = open("file.txt",O_RDWR);
+if(fd == -1)
+{
+	printf("Unable to open file \n");
+	return -1;
+}
+
+
+// When we use write and lseek system call it not provides atomic behaviour.
+// When multiple processess can access the same file then there can be a problem.
+// which can be avoided using pwrite system call which gives effect of lseek and read atomically.
+
+// Parameters of pwrite system call is same but only diffrence is in last parameter
+// Last parameter is offset at which we have to write
+
+ret = pwrite(fd,buff,sizeof(buff),20);
+
+// pwrite system call returns no of bytes successfully written.
+
+if(ret != sizeof(buff))
+{
+	printf("Unable to write contents\n");
+}
+
+printf("Written contents are \n %s",buff);
+
+return 0;
+
+}
+//----------------------------------------------------------------------------------
+/*
+	This program demonstates scatter/Gather I/O
+	In this program we are reading in vector of buffers from file with the help of readv() system call.
+*/
+
+#include<stdio.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/uio.h>	// for writev system call
+#include<unistd.h>
+
+int main()
+{
+
+	// Create three variables of iovec structure which maintains information about the buffer
+	struct iovec iobj[3];
+	/*
+		struct iovec
+		{
+			void *iov_base;	// Base address of buffer
+			size_t iov_len;	// Size of buffer	
+		};
+	*/
+
+	int fd;
+	int ret,i;
+
+	char buff1[13];
+	char buff2[13];
+	char buff3[13];
+
+	// Opening newly created file
+	fd = open("new1.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file\n");
+		return -1;
+	}
+
+	// Initializing the iovec struture
+	iobj[0].iov_base = buff1;
+	iobj[0].iov_len = sizeof(buff1);
+
+	iobj[1].iov_base = buff2;
+	iobj[1].iov_len = sizeof(buff2);
+
+	iobj[2].iov_base = buff3;
+	iobj[2].iov_len = sizeof(buff3);
+
+	ret = readv(fd,iobj,3);
+	// First parameter :	File descriptor
+	// Second parameter :	Base address of iovec structures array
+	// Third parameter :	Number of elements in iovec strucre array	
+
+	if(ret == -1)
+	{
+		printf("Error in writev\n");
+		return -1;
+	}
+
+	for(i=0; i<3; i++)
+	{
+		printf("%d : %s\n",i,(char *)iobj[i].iov_base);
+	}
+
+	close(fd);
+	return 0;
+}
+
+//--------------------------------------------------------------------------------------
+// This program demonstate renaming a file or directory
+
+#include<unistd.h>
+#include<fcntl.h>
+#include<stdio.h>
+#include <unistd.h>
+
+int main()
+{
+	int ret;
+	int fd;
+	// This system call accept first parameter as already existing
+	// file name and second parameter is a new file name
+	// This system call only change the file name in the directory.
+
+	ret = rename("file.txt","renamefile.txt");
+	if(ret == -1)
+	{
+		printf("Unable to rename file\n");
+		return -1;
+	}
+	printf("File renamed\n");
+	// Now we can open the file with new name
+	fd = open("renamefile.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");	
+		return -1;
+	}
+	printf("File opened\n");
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+// This program demonstate use of stat function which gives information about the file.
+// This program demonstate use of fstat function which gives information about the file.
+
+#include<string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+
+int main()
+{
+	int ret;
+	int fd;
+	struct stat fileStat;
+
+	// stat function accept file name as a parameter
+	ret = stat("file.txt",&fileStat);
+	if(ret == -1)
+	{
+		printf("stat function fail\n");
+		return -1;
+	}
+
+	printf("Calling function stat\n\n");
+	printf("File Size : \t\t%d bytes\n",(int)fileStat.st_size);
+	printf("Number of Links : \t%d\n",(int)fileStat.st_nlink);
+	printf("File inode : \t\t%d\n",(int)fileStat.st_ino);
+	printf("File system number: \t\t%d\n",(int)fileStat.st_dev);
+	printf("Number of blocks allocated fior file\t\t%d\n",(int)fileStat.st_blocks);
+	printf("File Permissions: \t");
+
+	printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+	printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
+	printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
+	printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
+	printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
+	printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
+	printf("\n\n");
+ 
+	if(S_ISLNK(fileStat.st_mode))
+	{
+		printf("It is symbolic link\n");
+	}
+	else
+	{
+		printf("It is not symbolic link\n");
+	}
+
+// If the file is already opened then we can call fstat function
+	fd = open("file.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+
+	// fstat function accept file desx
+
+	printf("Calling function fstat\n\n");
+	memset(&fileStat,0,sizeof(fileStat));
+	ret = fstat(fd, &fileStat);
+	if(ret == -1)
+	{
+		printf("Error in fstat");
+	}
+
+	printf("File Size : \t\t%d bytes\n",(int)fileStat.st_size);
+	printf("Number of Links : \t%d\n",(int)fileStat.st_nlink);
+	printf("File inode : \t\t%d\n",(int)fileStat.st_ino);
+
+	return 0;
+}
+
+//----------------------------------------------------------------------------------------
+//Program to demostrate startup and exit using #pragma.
+#include<stdio.h>
+void fun();
+void sun() ;
+
+#pragma startup fun
+
+#pragma exit sun
+
+int main()
+{
+printf("\nIn main");
+return 0;
+}
+
+void fun()
+{
+printf("\nIn fun");
+}
+
+void sun()
+{
+printf("\nIn sun");
+}
+
+//------------------------------------------------------------------------------------------
+// This program demonstates creation of symbolic link means soft link.
+// A symbolic link is a special type of file whose contents are a string
+// that is the pathname another file, the file to which the link refers.
+// Symbolic  links  are  files  that act as pointers to other files. But in case of hard link
+// new name of the file gets added in directory with the same inode number.
+// In user level symbolic links are called as shortcuts.
+
+#include<fcntl.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include <unistd.h>
+#include<string.h>
+
+int main()
+{
+	int fd,ret;
+	char buff[30];
+
+	ret = symlink("new.txt","symlink.txt");
+	if(ret == -1)
+	{
+		printf("Unable to create symbolic link\n");
+		return -1;
+	}
+
+	// If we create symbolic link for such a file which is not existing
+	// then that type of link is called as dangling link.
+
+	// As symbolic link contains path of another file we can read this file by 
+	// using readlink system call.
+
+	ret = readlink("symlink.txt",buff,sizeof(buff));
+	if(ret == 0)
+	{
+		printf("Unable to retrive ");
+	}
+
+	printf("Contents inside the sybolic link are\n%s",buff);
+
+	// opening a symbolic link
+	fd = open("symlink.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+		return -1;
+	}
+
+	memset(buff,0,sizeof(buff));
+
+	// When we read teh symbolic link we get data inside the original file.
+
+	ret = read(fd,buff,sizeof(buff));
+	if(ret == 0)
+	{
+		printf("Unable to read contents\n");
+		return -1;
+	}
+
+	printf("\nContents inside the sybolic link are : %s\n",buff);
+
+	return 0;
+}
+
+//----------------------------------------------------------------------------------------
+#include <fcntl.h>
+#include<stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+	int fd1;
+	int ret;
+	char buff[]="New data";
+
+	// If file is opened in read mode
+	fd1 = open("new1.txt",O_RDWR);
+	if(fd1 == -1)
+	{
+		printf("Unable to open file \n");
+	}
+		return -1;
+
+	ret = write(fd1,buff,sizeof(buff)-1);
+	if(ret != 8)
+	{
+		printf("Unable to write in file\n");
+		return -1;
+	}
+	printf("\nContents written inside the file\n");
+
+	//The sync function simply queues all the modified block buffers for 
+	//writing and returns; it does not wait for the disk writes to take place.
+	sync();
+
+	// The function fsync refers only to a single file, specified by the 
+	// file descriptor filedes, and waits for the disk writes to complete 
+	// before returning.
+	fsync(fd1);
+
+	// The fdatasync function is similar to fsync, but it affects only the 
+	// data portions of a file. With fsync, the file's attributes are 
+	// also updated synchronously.
+	fdatasync(fd1);
+
+	return 0;
+}
+
+//--------------------------------------------------------------------------------------
+// This program demonstates temorary file creation
+
+#include<stdio.h>
+
+int main()
+{
+FILE *fp;
+
+fp = tmpfile();
+
+if(fp == NULL)
+{
+	printf("Unable to create temorary file.\n");
+}
+
+// Now we can use this fp for further file operation
+
+return 0;
+}
+//------------------------------------------------------------------------------------------
+// This program demonstates truncate and ftruncate system call
+// By using truncate or ftruncate function we can truncate the 
+// file from specified offset.
+// If we use O_TRUNK option while opening the file whole file 
+// gets truncated and file size become zero.
+// But using this system calls we can truncate file from 
+// specified offset from end
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int main( )
+{
+	int ret;
+	int fd;
+
+	// By using this function we can truncate the file after file offset 10
+	ret = truncate("file.txt",10);
+	if(ret == -1)
+	{
+		printf("Unable to truncate file\n");
+	}
+
+	// For the truncaion purpose file must be opened in write mode
+	fd = open("new.txt",O_RDWR);
+	if(fd == -1)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// If file is already opened then instd of calling truncate we can call
+	// ftruncate which accept file descriptor as a first parameter
+
+	// In this case file gets truncated after file offset 7.
+	ret = ftruncate(fd,7);
+	if(ret == -1)
+	{
+		printf("Unable to truncate file\n");
+	}
+	printf("File truncated. \n");
+
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+/*
+	This program demonstates scatter/Gather I/O
+	In this program we are writing vector og buffers in file withe the help of writev() system call.
+*/
+
+#include<stdio.h>
+#include<fcntl.h>
+#include<string.h>
+#include<sys/uio.h>	// for writev system call
+
+int main()
+{
+
+	// Create three variables of iovec structure which maintains information about the buffer
+	struct iovec iobj[3];
+	/*
+		struct iovec
+		{
+			void *iov_base;	// Base address of buffer
+			size_t iov_len;	// Size of buffer	
+		};
+	*/
+
+	int fd;
+	int ret;
+
+	char buff1[] = "First string.";
+	char buff2[] = "Second string";
+	char buff3[] = "Third string.";
+
+	// Opening newly created file
+	fd = open("writev_demo.txt",O_WRONLY | O_CREAT);
+	if(fd == -1)
+	{
+		printf("Unable to open file\n");
+		return -1;
+	}
+
+	// Initializing the iovec struture
+	iobj[0].iov_base = buff1;
+	iobj[0].iov_len = strlen(buff1);
+
+	iobj[1].iov_base = buff2;
+	iobj[1].iov_len = strlen(buff2);
+
+	iobj[2].iov_base = buff3;
+	iobj[2].iov_len = strlen(buff3);
+
+	ret = writev(fd,iobj,3);
+	// First parameter :	File descriptor
+	// Second parameter :	Base address of iovec structures array
+	// Third parameter :	Number of elements in iovec strucre array	
+	if(ret == -1)
+	{
+		printf("Error in writev\n");
+		return -1;
+	}
+	printf("data written successfully\n");
+	return 0;
+}
+
+
+//------------------------------------------------------------------------------------
+
+/*
+
+This functions are used to read or write the contents into the file in character by character manner
+
+*/
+
+#include<stdio.h>
+
+int main()
+{
+
+	FILE *fp1 = NULL;
+	FILE *fp2 = NULL;
+
+	char str[] ="Hello world";
+	char ch;
+	int i = 0;
+
+	// Open the file in read mode
+	fp1 = fopen("file.txt","r");
+	if(fp1 == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// fgetc function read single single character from the file till End of file occur
+	printf("File contents are\n");
+	while((ch = fgetc(fp1))!=EOF)
+	{
+		printf("%c",ch);
+	}
+
+	// Close the opened file
+	fclose(fp1);
+
+	// Open the file in append mode
+	fp2 = fopen("file.txt","a");
+	if(fp2 == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	printf("Writing contents into the file\n");
+	while(str[i]!= '\0')
+	{
+		fputc(str[i],fp2);
+		// First patrameter :	Character to be write in file
+		// Second parameter :	File pointer	
+		i++;
+	}
+
+	// Close the opened file
+	fclose(fp2);
+
+	return 0;
+}
+//--------------------------------------------------------------------------------------------
+/*
+	This program demonstate how to read line or how to write line into the file
+*/
+
+#include<stdio.h>
+
+int main()
+{
+
+	FILE *fp;
+	char str[50];
+	char *p;
+	int ret;
+
+	// open the file in read mode
+	fp = fopen("file.txt","r");
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+		return -1;
+	}
+
+	// fgets function read the string from file till new line character occurs or length satisfies
+	p = fgets(str,10,fp);
+	// First parameter :	Array in which data is to be read
+	// Second parameter :	Number of character to read
+	// Third parameter :	File pointer
+
+	// If there is some error then it returns NULL
+	if(p == NULL)
+	{
+		printf("Error in fgets\n");
+		return -1;
+	}
+
+
+	printf("Contents read by fgets are :\n%s",str);
+
+	fclose(fp);
+
+	// open the file in write mode
+	fp = fopen("file.txt","w");
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+		return -1;
+	}
+
+	ret = fputs("New line inserted in file",fp);
+	// First parameter :	String which is to be written in file
+	// Second parameter :	File pointer
+
+	// IF therere is some error it reaturns EOF
+	if(ret == EOF)
+	{
+		printf("Unable to write contents in file\n");
+		return -1;
+	}
+
+	return 0;	
+}
+//-----------------------------------------------------------------------------------------
+
+/*
+	This program demonsate how to retrive file descrptor from th FILE pointer
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *fp;
+	int fd;
+
+	// Open file
+	fp = fopen("file.txt","r");
+	if(fp == NULL)
+	{
+		printf("Unable to open the file\n");
+		return -1;
+	}
+
+	// This function returns file descripter which is allocated for the file.
+	fd = fileno(fp);
+	// First parameter :	File pointer
+	if(fd == -1)
+	{
+		printf("Unable to get file descriptor\n");
+		return -1;
+	}
+
+	printf("File descriptor is %d\n",fd);
+
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+
+/*
+
+	- fopen() is a function from C standard library. which is declared in stdio.h file.
+	- This function not directly operate on file descriptor. It uses there own unique
+	  identifier called as file pointer. This file pointer maps to the file descriptor.
+	- In standard I/O opened file is called as stream which can be opened for reading or
+	  writing.
+
+	- Structure which is used to represent open file is in stdio.h called as FILE.
+	  which is declared as
+
+	typedef struct
+	{
+		short level;		// fill/empty buffer level
+		unsigned flags;		// file status flag
+		char fd;		// file decriptor
+		unsigned char hold;	// ungetc character if no buffer
+		short bsize;		// buffer size
+		unsigned char *buffer;	// data transfer buffer
+		unsigned char *curp;	// current active pointer
+		unsigned int istemp;	// Temporary file indicator
+		short token;		// used for validity checking
+	}FILE;
+
+	When we open any file this structure gets filled with the appropriate contents.
+
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *fp;
+
+	fp = fopen("file.txt","r");
+	// First parameter :	File name to be opened
+	// Second parameter :	Mode in which file to be open	
+
+	/*
+		Mode in which file can be open :
+
+		r :	Read mode
+		w :	Writing mode. If file exist it gets truncated otherwise new created
+		a :	Append mode
+		rb :	Binary read mode
+		rw :	Binary write mode
+		ab :	Binary append mode	
+		r+ :	Open existing file for reading and writing
+		w+ : 	Open existing file for reading and writing. If not existing then new file is created
+		a+ :	Open for reading and appending	
+	*/	
+
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+	printf("\nFile Opened.\n");
+	// Close the file
+	fclose(fp);
+	printf("File Closed.\n");
+	// It is used to close all opened files
+	fcloseall();
+	printf("All files are closed\n");
+	return 0;
+}
+
+//--------------------------------------------------------------------------------------------
+/*
+	This program demonstate formatted input output from file by using fprint() & fscanf()
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *fp = NULL;
+	char str[]="New string";
+	char ch;
+
+	// open the file
+	fp = fopen("file.txt","r+");
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// fprinf is similar as printf but insted of writing the contents on STDOUT it writes the contents in file.
+	// It returns no of characters successfully written in file.
+
+	fprintf(fp,"\t%s\n",str);
+
+	// fscanf is similar as scanf but insted of reading the contents from STDIN it reads the contents from file.
+	// It returns no of characters successfully read from file.
+
+	fscanf(fp,"%c",&ch);
+	printf("Character read by fscanf is : %c\n",ch);
+
+	return 0;
+}
+
+//----------------------------------------------------------------------------------------------
+/*
+	This program demonstates block input and output from file by using fread,fwrite.
+*/
+
+#include<stdio.h>
+#include <string.h>
+
+struct demo
+{
+int i;
+char arr[6];
+};
+
+int main()
+{
+	FILE *fp = NULL;
+	int ret;
+
+	struct demo obj1,obj2;
+	obj1.i = 10;
+	strcpy(obj1.arr,"Hello");
+
+	// open the file
+	fp = fopen("file.txt","wb");
+	// First parameter :	Name of file to open
+	// Second parameter :	Mode in which file should be open
+
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// This function is used to write block in file.
+
+	ret = fwrite(&obj1,sizeof(obj1),1,fp);
+	// First parameter :	Data element to be write
+	// Second parameter :	Size of data element
+	// Third parameter :	No of data elements
+	// Fourth parameter : 	File pointer
+
+	// This function returns number of data elements written in file
+	
+	if(ret != 1)
+	{
+		printf("Error while writing the contents");
+		return -1;
+	}
+
+	fclose(fp);
+
+	// open the file
+	fp = fopen("file.txt","rb");
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	fread(&obj2,sizeof(obj2),1,fp);
+
+	printf("  %d   %s\n",obj2.i,obj2.arr);
+
+	return 0;
+}
+
+//----------------------------------------------------------------------------------------
+/*
+fseek function is used to change the file position which is used for further reading or writing.
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *fp = NULL;
+	int ret;
+	char ch;
+
+	fp = fopen("file.txt","r+");
+	if(fp == NULL)
+	{
+		printf("Unable to open file\n");
+	}
+
+	// Print the contents of file
+	printf("File contents before fseek are\n");
+	while((ch = fgetc(fp))!=EOF)
+	{
+		printf("%c",ch);
+	}
+
+	ret = fseek(fp,5,SEEK_SET);
+	// First parameter :	File pointer
+	// Second parameter :	Number of bytes to seek (It can be negative also)
+	// Third parameter :	It indecates from where we have to seek
+	// Third parameter is as follows :
+	// SEEK_SET :	Seek from begining of the file (0)
+	// SEEK_CUR :	Seek from current position (1)
+	// SEEK_END :	Seek from end of the file (2)
+
+	if(ret != 0)
+	{
+		printf("Unable to seek\n");
+	}
+
+	// Write character 'z' at the new position
+	fputc('z',fp);
+
+	printf("\n\nFile contents before fseek are\n");
+
+	// Set the file position to the begining
+	fseek(fp,0,SEEK_SET);
+
+	// The above effect can be achived through the function rewind
+	// rewind() function sets file position indecator to start of the file
+
+	rewind(fp);
+
+	while((ch = fgetc(fp))!=EOF)
+	{
+		printf("%c",ch);
+	}
+	return 0;
+}
+
+//-------------------------------------------------------------------------------------------
+/*
+This functions are used to check the current postion from which reading and writing is performed
+*/
+
+#include<stdio.h>
+
+int main()
+{
+	FILE *fp1 = NULL;
+	FILE *fp2 = NULL;
+
+	long pos;
+
+	fp1 = fopen("file.txt","r");
+	if(fp1 == NULL)
+	{
+		printf("Unable toopen the file\n");
+	}
+
+	fp2 = fopen("file.txt","a");
+	if(fp2 == NULL)
+	{
+		printf("Unable toopen the file\n");
+	}
+
+	// ftell function returns the current file position
+	pos = ftell(fp1);
+	printf("Current offset if file is opened in read mode is %ld\n",pos);
+
+	pos = ftell(fp2);
+	printf("Current offset if file is opened in append mode is %ld\n",pos);
+
+	// We can also use fgetpos function to get same effect
+	fgetpos(fp1,&pos);
+	// First parameter :	File pointer
+	// Second parameter:	Out parameter which receives the output
+
+	printf("Current offset if file is opened in read mode is %ld\n",pos);
+
+	fgetpos(fp2,&pos);
+	printf("Current offset if file is opened in read mode is %ld\n",pos);
+
+	// close the opened files
+	fclose(fp1);
+	fclose(fp2);
+
+	return 0;
+}
+
+//--------------------------------------------------------------------------------------------
+// For demonstration of this program perform following activity
+// Create file as input.txt in working directoy and write twonumbers in file as 10 20
+// Create empty file as output.txt in working directory
+// compile the program
+// Run the program as
+// ./a.out <input.txt >output.txt
+// After this output.txt file contains output as 
+// "Addition of 10 and 20 is 30"
+
+#include<stdio.h>
+
+int main()
+{
+	int no1,no2,no3;
+
+	printf("Demo of Input Ouptput rediction\n");
+
+	scanf("%d %d %d",&no1,&no2,&no3);
+
+	printf("Addition of %d %d %d is %d",no1,no2,no3,no1+no2+no3);
+
+	return 0;
+}
+//--------------------------------------------------------------------------------------------
+#include <fcntl.h>
+#include<stdio.h>
+
+char buf1[] = "First line";
+char buf2[] = "Last line";
+
+int main(void)
+{
+	int fd;
+	int offset;
+
+	fd = open("new.txt",O_RDWR);
+	if(fd == -1)
+	{
+		printf("Unable to open file \n");
+		return -1;
+	}
+
+	// File is opened in read or write mode current file offset
+	// is always zero
+	// Means we open a file which is already existing and we write something
+	// in that file then data gets overwritten
+	
+	// To change the current file offset we can use lseek function	
+
+	offset = lseek(fd,0,SEEK_SET);
+	printf("offset is %d\n",offset);
+
+	// SEEK_SET means staring offset of file
+	// SEEK_CUR means current offset of file
+	// SEEK_END means last byte offset of file
+
+	// We can change the file offset 50 bytes from the starting position by 
+
+	offset = lseek(fd,50,SEEK_SET);
+	printf("Now current offset is %d\n",offset);
+
+	// We can also move the current byte offset in backward direction
+
+	offset = lseek(fd,-20,SEEK_CUR);
+	printf("After backward traversal offset is %d\n",offset);
+
+	// To check the last byte offset of the file we can call lseek function as
+
+	offset = lseek(fd,0,SEEK_END);
+	printf("Last byte offset is %d\n",offset);
+
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+// This program demonstate open system call
+
+#include<stdio.h>
+#include<fcntl.h>
+
+int main()
+{
+
+	int fd;
+
+	// Opening file in read mode
+	fd = open("/root/Desktop/new.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+	else
+	{
+		printf("File is successfully opened with file descriptor %d in read mode \n",fd);
+	}
+
+	// Opening file in write mode
+	fd = open("/root/Desktop/new.txt",O_WRONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+	else
+	{
+		printf("File is successfully opened with file descriptor %d in write mode \n",fd);
+	}
+
+	// Opening file in write mode
+	fd = open("/root/Desktop/new.txt",O_RDWR);
+	if(fd == -1)
+	{
+		printf("Unable to open the file\n");
+	}
+	else
+	{
+		printf("File is successfully opened with file descriptor %d in read & write mode \n",fd);
+	}
+
+	// Uses of other macro while opening a file
+
+	// O_APPEND Append to the end of file on each write.
+	// O_CREAT Create the file if it doesn't exist.
+	// O_EXCL Generate an error if O_CREAT is also specified and the file already exists. 
+	// O_TRUNC If the file exists and if it is successfully opened for either write-only or read�write, truncate its length to 0.
+	// O_DSYNC Affects a file's attributes only when they need to be updated to reflect a change in the file's data.
+	// O_SYNC data and attributes are always updated synchronously
+
+	// This flags can be or.
+
+	fd = open("/root/Desktop/new.txt",O_WRONLY | O_TRUNC);
+	return 0;
+}
+//--------------------------------------------------------------------------------------------
+#include <fcntl.h>
+#include<stdio.h>
+
+int main(void)
+{
+	int fd;
+	int ret;
+	int offset;
+
+	char buff[200];
+
+	// If file is opened in read mode we can read the contents from 0 byte offset
+	fd = open("new.txt",O_RDONLY);
+	if(fd == -1)
+	{
+		printf("Unable to open file \n");
+		return -1;
+	}
+
+	// We can read the contents from teh file by using read system call
+	// which accept first parameter as file descriptor	
+	// second parameter is empty buffer
+	// Third parameter is number of bytes to read
+
+	ret = read(fd,buff,20);
+
+	// read system call returns no of bytes successfully read.
+	// It returns -1 if it fails to read
+	// It returns 0 if it reach end of file whicle reading
+
+	if(ret != 20)
+	{
+		printf("Unable to read contents\n");
+	}
+
+	printf("Read contents are \n %s\n",buff);
+
+	// After reading 20 bytes current offset is changed by 20 bytes
+
+	offset = lseek(fd,0,SEEK_CUR);
+	printf("After reading 20 bytes current byte offset is %d\n",offset);
+
+	return 0;
+}
+
+//-------------------------------------------------------------------------------------------
+#include <fcntl.h>
+#include<stdio.h>
+
+int main(void)
+{
+	int fd;
+	int ret;
+	int offset;
+
+	char buff[] = "New contens in the file\n";
+	char buff2[sizeof(buff)];
+
+	// If file is opened in write mode we can read the contents from 0 byte offset
+	fd = open("file.txt",O_RDWR);
+	if(fd == -1)
+	{
+		printf("Unable to open file \n");
+		return -1;
+	}
+
+	// We can write the contents to the file by using write system call
+	// which accept first parameter as file descriptor
+	// second parameter is filled buffer
+	// Third parameter is number of bytes to write
+
+	ret = write(fd,buff,sizeof(buff));
+
+	// read system call returns no of bytes successfully write.
+	// It returns -1 if it fails to write
+
+	if(ret != sizeof(buff))
+	{
+		printf("Unable to write contents\n");
+	}
+
+	lseek(fd,0,SEEK_SET);
+
+	ret = read(fd,buff2,sizeof(buff2));
+	printf("Written contents are : %s\n",buff2);
+	close(fd);
+	close(ret);
+
+	return 0;
+}
+
+//------------------------------------------------------------------------------------------
+
+//                         DEVICE DRIVERS AND KERNEL MODULES CODES 
+
+
+  
+//------------------------------------------------------------------------------------------
+
+// CHARACTER DEVICE DRIVERS - demo.c and driver-3.c
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<errno.h>
+#include<fcntl.h>
+#include<string.h>
+
+#define BUFFER_LENGTH 256          
+static char receive[BUFFER_LENGTH];     ///< The receive buffer from the LKM
+
+int main()
+{
+	int ret, fd;
+	char stringToSend[BUFFER_LENGTH];
+	printf("Starting device test code example...\n");
+	fd = open("/dev/Marvellous_Driver_1", O_RDWR);             // Open the device with read/write access
+
+	if (fd < 0)
+	{
+		perror("Failed to open the device...");
+		return errno;
+	}
+	printf("Type in a short string to send to the kernel module:\n");
+	scanf("%[^\n]%*c", stringToSend);                // Read in a string (with spaces)
+	printf("Writing message to the device [%s].\n", stringToSend);
+	ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+	if (ret < 0)
+	{
+		perror("Failed to write the message to the device.");
+		return errno;
+	}
+
+	printf("Press ENTER to read back from the device...\n");
+	getchar();
+
+	printf("Reading from the device...\n");
+	ret = read(fd, receive, BUFFER_LENGTH);        // Read the response from the LKM
+	if (ret < 0)
+	{
+		perror("Failed to read the message from the device.");
+		return errno;
+	}
+	printf("The received message is: [%s]\n", receive);
+	printf("End of the program\n");
+
+	return 0;
+}
+
+// driver file for character driver
+// Macros used to mark up functions e.g. __init __exit
+#include <linux/init.h>
+
+ // Core header for loading LKMs into the kernel
+#include <linux/module.h> 
+
+ // Header to support the kernel Driver Model
+#include <linux/device.h> 
+
+ // Contains types, macros, functions for the kernel
+#include <linux/kernel.h>
+
+ // Header for the Linux file system support
+#include <linux/fs.h>
+
+ // Required for the copy to user function
+#include <asm/uaccess.h>
+
+// The device will appear at /dev/char using this value
+#define  DEVICE_NAME "Marvellous_Driver_1"
+
+// The device class -- this is a character device driver
+#define  CLASS_NAME  "Marvellous_Driver"        
+
+// The license type -- this affects available functionality
+MODULE_LICENSE("GPL");
+
+// The author -- visible when you use modinfo
+MODULE_AUTHOR("Piyush Khairnar");
+
+
+MODULE_DESCRIPTION("Marvellous : Demo character driver");
+
+// A version number to inform users
+MODULE_VERSION("0.1");
+
+// Stores the device number -- determined automatically
+static int    majorNumber;
+
+// Memory for the string that is passed from userspace
+static char   message[256] = {0};       
+
+// Used to remember the size of the string stored
+static short  size_of_message;           
+
+// Counts the number of times the device is opened
+static int    numberOpens = 0;             
+
+// The device-driver class struct pointer
+static struct class*  charClass  = NULL;
+ 
+static struct device* charDevice = NULL;  
+
+// The prototype functions for the character driver -- must come before the struct definition
+static int     dev_open(struct inode *, struct file *);
+
+static int     dev_release(struct inode *, struct file *);
+
+static ssize_t dev_read(struct file *, char *, size_t, loff_t *);
+
+static ssize_t dev_write(struct file *, const char *, size_t, loff_t *);
+ 
+// Initialise file_operations structure
+static struct file_operations fops =
+{
+   .open = dev_open,
+   .read = dev_read,
+   .write = dev_write,
+   .release = dev_release,
+};
+ 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// Driver initialisation function
+
+static int __init char_init(void)
+{
+	printk(KERN_INFO "Marvellous : Driver loaded successfully\n");
+
+	//Allocate a major number for the device
+	majorNumber = register_chrdev(0, DEVICE_NAME, &fops);
+
+	// If there is a problem in major number allocation   
+	if (majorNumber<0)
+	{
+		printk(KERN_ALERT "Marvellous : failed to register a major number\n");
+
+		return majorNumber;
+	}
+
+	printk(KERN_INFO "Marvellous : registered correctly with major number %d\n", majorNumber);
+
+	// Register the device class
+	charClass = class_create(THIS_MODULE, CLASS_NAME);
+
+	if (IS_ERR(charClass))
+	{
+		unregister_chrdev(majorNumber, DEVICE_NAME);
+
+		printk(KERN_ALERT "Failed to register device class\n");
+
+		return PTR_ERR(charClass); 
+	}
+
+	printk(KERN_INFO "Marvellous : device class registered correctly\n");
+
+	// Register the device driver
+	charDevice = device_create(charClass, NULL, MKDEV(majorNumber, 0), NULL, DEVICE_NAME);
+
+	if (IS_ERR(charDevice))
+	{               // Clean up if there is an error
+		class_destroy(charClass); 
+
+		unregister_chrdev(majorNumber, DEVICE_NAME);
+
+		printk(KERN_ALERT "Failed to create the device\n");
+		return PTR_ERR(charDevice);
+	}
+
+	printk(KERN_INFO "Marvellous : device class created correctly\n");
+
+	return 0;
+}
+ //////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Driver cleanup function
+
+static void __exit char_exit(void)
+{
+	// remove the device
+	device_destroy(charClass, MKDEV(majorNumber, 0));
+
+	// unregister the device class
+	class_unregister(charClass);
+
+	// remove the device class
+	class_destroy(charClass); 
+
+	// unregister the major number
+	unregister_chrdev(majorNumber, DEVICE_NAME);
+	printk(KERN_INFO "Marvellous : Goodbye from our driver!\n");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+// Function which gets called when we open the device
+
+static int dev_open(struct inode *inodep, struct file *filep)
+{
+	numberOpens++;
+
+	printk(KERN_INFO "Marvellous :  Device has been opened %d time(s)\n", numberOpens);
+
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////// 
+// Function is called whenever device is being read from user space i.e. data is
+
+/*
+filep :	A pointer to a file object (defined in linux/fs.h)
+buffer:	The pointer to the buffer to which this function writes the data
+len :	The length of the b
+offset:	The offset if required
+*/
+
+static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset)
+{
+	int error_count = 0;
+	// copy_to_user has the format ( * to, *from, size) and returns 0 on success
+	error_count = copy_to_user(buffer, message, size_of_message);
+
+	if (error_count==0)
+	{            // if true then have success
+		printk(KERN_INFO "Marvellous :  Sent %d characters to the user\n", size_of_message);
+		
+		return (size_of_message=0);  // clear the position to the start and return 0
+	}
+	else 
+	{
+		printk(KERN_INFO "Marvellous :  Failed to send %d characters to the user\n", error_count);
+
+		return -EFAULT;              // Failed -- return a bad address message (i.e. -14)
+	}
+}
+ //////////////////////////////////////////////////////////////////////////////////////////////////
+
+//This function is called whenever the device is being written to from user space i.e.
+// data is sent to the device from the user. The data is copied to the message[] array in this
+/*
+filep:	 A pointer to a file object
+buffer:	 The buffer to that contains the string to write to the device
+len:	 	The length of the array of data that is being passed in the const char buffer
+offset:	 The offset if required
+*/
+
+static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset)
+{
+	sprintf(message, "%s(%d letters)", buffer, len);   // appending received string with its length
+
+	size_of_message = strlen(message);                 // store the length of the stored message
+
+	printk(KERN_INFO "Marvellous :  Received %d characters from the user\n", len);
+
+	return len;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////// 
+// The device release function that is called whenever the device is closed/released by the userspace program
+/*
+inodep:	 A pointer to an inode object (defined in linux/fs.h)
+filep:	 A pointer to a file object (defined in linux/fs.h)
+*/
+
+static int dev_release(struct inode *inodep, struct file *filep)
+{
+	printk(KERN_INFO "Marvellous :  Device successfully closed\n");
+
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+module_init(char_init);
+module_exit(char_exit);
+
+//--------------------------------------------------------------------------------------------
+
+// END OF CHARACTER DRIVER FILE 
+
+
+//-----------------------------------------------------------------------------------------------
+
+
+
+
+
+      
+      
+
+
+
+
+
+
+
