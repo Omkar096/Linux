@@ -1,0 +1,149 @@
+
+==========================================================
+****************      Linux Command    *******************
+==========================================================
+
+ls – List files
+
+cd – Change directory
+
+pwd – Show current directory
+
+mkdir – Make directory
+
+rm – Remove files or directories
+
+cp – Copy files/directories
+
+mv – Move or rename
+
+find – Find files and directories
+
+
+========================================================
+File Viewing and Manipulation
+========================================================
+cat – Concatenate and display files
+
+less, more – View text files one page at a time
+
+head, tail – View beginning/end of files
+
+cut, awk, sed – Text processing tools
+
+diff, cmp – Compare files
+
+wc – Count lines, words, characters
+-------------------------------------------------------
+
+=======================================================
+User Management
+
+=======================================================
+who, w – Who is logged in
+
+id – Current user ID
+
+useradd, usermod, userdel – Manage users
+
+passwd – Change password
+
+groupadd, groupdel – Manage groups
+
+$pwd
+-------------------------------------------------------
+
+=======================================================
+Permissions
+=======================================================
+chmod – Change file permissions
+
+chown – Change file owner
+
+chgrp – Change group
+
+umask – Set default permissions
+
+-------------------------------------------------------
+
+=======================================================
+Process Management
+=======================================================
+ps – Show running processes
+
+kill, killall – Terminate processes
+
+nice, renice – Set process priority
+
+jobs, fg, bg – Job control
+
+--------------------------------------------------------
+
+======================================================
+Package Management
+======================================================
+Debian/Ubuntu: apt, dpkg
+$sudo apt 
+-------------------------------------------------------
+
+======================================================
+Networking
+======================================================
+ip a – Show IP addresses
+
+ping – Check network connection
+
+traceroute – Route path
+
+netstat / ss – Network connections
+
+curl, wget – Fetch content from web
+
+scp, rsync – Copy files over network
+
+ssh – Secure shell login
+
+-----------------------------------------------------
+
+=====================================================
+Disk and Filesystem
+=====================================================
+df – Disk space usage
+
+du – Directory size
+
+mount, umount – Mount/Unmount devices
+
+lsblk, blkid – Block devices
+
+fdisk, parted – Disk partitioning
+
+fsck – Filesystem check
+
+-----------------------------------------------------
+=====================================================
+Shell and Scripting
+=====================================================
+
+bash, sh – Shells
+
+echo, read, test – Scripting tools
+
+cron, at – Schedule tasks
+
+alias, export, env, source – Shell environment
+
+------------------------------------------------------
+
+======================================================
+ System Management
+ =====================================================
+systemctl, service – Manage services
+
+journalctl – View logs
+
+reboot, shutdown, halt – Power controls
+
+crontab – Schedule jobs
+
+-------------------------------------------------------
